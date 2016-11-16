@@ -1,0 +1,7 @@
+c:\users\гость\documents\visual studio 2010\Projects\Lab3RIAT\Lab3RIAT\obj\x86\Debug\Lab3RIAT.csprojResolveAssemblyReference.cache
+c:\users\гость\documents\visual studio 2010\Projects\Lab3RIAT\Lab3RIAT\bin\Debug\Lab3RIAT.exe
+c:\users\гость\documents\visual studio 2010\Projects\Lab3RIAT\Lab3RIAT\bin\Debug\Lab3RIAT.pdb
+c:\users\гость\documents\visual studio 2010\Projects\Lab3RIAT\Lab3RIAT\bin\Debug\Newtonsoft.Json.dll
+c:\users\гость\documents\visual studio 2010\Projects\Lab3RIAT\Lab3RIAT\bin\Debug\Newtonsoft.Json.pdb
+c:\users\гость\documents\visual studio 2010\Projects\Lab3RIAT\Lab3RIAT\obj\x86\Debug\Lab3RIAT.exe
+c:\users\гость\documents\visual studio 2010\Projects\Lab3RIAT\Lab3RIAT\obj\x86\Debug\Lab3RIAT.pdb
