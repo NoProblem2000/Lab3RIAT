@@ -30,7 +30,7 @@ namespace Lab3RIAT
                 var url = context.Request.RawUrl;
                 string input;
                 string output;
-                var toInvoke = GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).FirstOrDefault(x => url.Contains(x.Name));
+                var toInvoke = GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(x => x.ReturnType == typeof(string)).FirstOrDefault(x => url.Contains(x.Name));
                 input = new StreamReader(context.Request.InputStream).ReadToEnd();
                 output = (string)toInvoke.Invoke(this, new object[]{input});
                 new StreamWriter(context.Response.OutputStream).Write(output);
@@ -70,8 +70,5 @@ namespace Lab3RIAT
             var outputLine = iSerializer.Serialize(output);
             return Encoding.UTF8.GetString(outputLine);
         }
-
-
-
     }
 }
