@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -8,10 +9,10 @@ namespace Lab3RIAT
 {
     class CreateServer
     {
-            ISerializer iSerializer;
-            HttpListener httpListener;
-            int port;
-            string Output;
+        ISerializer iSerializer;
+        HttpListener httpListener;
+        int port;
+        string Output;
 
         public CreateServer(ISerializer iSerializer, int port)
         {
@@ -30,18 +31,23 @@ namespace Lab3RIAT
                 var url = context.Request.RawUrl;
                 string input;
                 string output;
-                var toInvoke = GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(x => x.ReturnType == typeof(string)).FirstOrDefault(x => url.Contains(x.Name));
-                input = new StreamReader(context.Request.InputStream).ReadToEnd();
-                output = (string)toInvoke.Invoke(this, new object[]{input});
-                new StreamWriter(context.Response.OutputStream).Write(output);
-                if (output == null)
+                try
                 {
-                    httpListener.Stop();
+                    var toInvoke = GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(x => x.ReturnType == typeof(string)).FirstOrDefault(x => url.Contains(x.Name));
+                    input = new StreamReader(context.Request.InputStream).ReadToEnd();
+                    output = (string)toInvoke.Invoke(this, new object[] { input });
+                    new StreamWriter(context.Response.OutputStream).Write(output);
                 }
+                catch (Exception)
+                {
+                    
+                }
+                
+               
             }
         }
 
-        public string Ping()
+        public string Ping(string input)
         {
             return string.Empty;
         }
