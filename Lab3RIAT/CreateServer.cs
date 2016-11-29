@@ -11,6 +11,7 @@ namespace Lab3RIAT
     {
         ISerializer iSerializer;
         HttpListener httpListener;
+        HttpListenerContext context;
         int port;
         string Output;
 
@@ -19,15 +20,19 @@ namespace Lab3RIAT
             this.port = port;
             this.iSerializer = iSerializer;
         }
-
+        public void OkStatusCode()
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.OK;
+            context.Response.OutputStream.Dispose();
+        }
         public void Listen()
         {
             httpListener = new HttpListener();
-            httpListener.Prefixes.Add(string.Format("http://127.0.0.1:{0}/", port));
+            httpListener.Prefixes.Add($"http://127.0.0.1:{port}/");
             httpListener.Start();
             while (httpListener.IsListening)
             {
-                var context = httpListener.GetContext();
+                context = httpListener.GetContext();
                 var url = context.Request.RawUrl;
                 string input;
                 string output;
@@ -42,29 +47,33 @@ namespace Lab3RIAT
                 {
                     
                 }
-                
-               
             }
         }
 
         public string Ping(string input)
         {
+            OkStatusCode();
             return string.Empty;
         }
 
         public string GetAnswer(string input)
         {
-            return Output;
+           byte[] val = iSerializer.Serialize(input);
+           using (var streamReader = context.Response.OutputStream)
+                streamReader.Write(val, 0, val.Length);
+            return Output = val.ToString();
         }
 
         public string PostInputData(string inputData)
         {
             Output = PrepareResponse(inputData);
+            OkStatusCode();
             return string.Empty;
         }
 
         public string Stop(string input)
         {
+            OkStatusCode();
             httpListener.Stop();
             return null;
         }

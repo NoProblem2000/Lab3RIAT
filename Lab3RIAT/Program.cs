@@ -6,7 +6,7 @@ namespace Lab3RIAT
     {
         static void Main(string[] args)
         {
-            int port = 100;
+            int port = 80;
             ISerializer iSerializer = new JsonSerializer();
             if(!int.TryParse(Console.ReadLine(),out port))
                 return;
